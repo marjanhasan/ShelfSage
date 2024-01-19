@@ -32,8 +32,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-""" ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ['','https://*.127.0.0.1'] """
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -68,7 +67,7 @@ ROOT_URLCONF = 'ShelfSage.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
