@@ -8,36 +8,30 @@
       </div>
       <div class="col-md-10">
         <div class="card-body">
-          <h5 class="card-title"><b class="text-light">Model :</b> {{ book.name }}</h5>
+          <h5 class="card-title"><b class="text-light">Model :</b> {{ book.author }}</h5>
           <p class="card-text">
             <b class="text-light">Description :</b>{{ book.description }}
           </p>
           <p class="card-text">
-            <small class="text-body-secondary"><b class="text-light">Quantity :</b> {{ book.quantity }}</small>
-          </p>
-          <p class="card-text">
-            <small class="text-body-secondary"><b class="text-light">Price :</b> ${{ book.price }}</small>
-          </p>
-          <p class="card-text">
             <small class="text-body-secondary"><b class="text-light">Categories :</b> {{ book.category.name }}</small>
           </p>
-          {% if request.user.is_authenticated %}
+{% comment %}           {% if request.user.is_authenticated %}
             <p class="card-text">
               <button class="btn btn-light"><a class="text-decoration-none text-dark" href="{% url 'borrow' id=book.id userid=request.user.id %}">Borrow</a></button>
             </p>
-          {% endif %}
+          {% endif %} {% endcomment %}
         </div>
       </div>
     </div>
   </div>
   {% if request.user.is_authenticated %}
-  <h5 class="p-3">Total Reviews : {{ comments|length }}</h5>
-  {% for comment in comments %}
+  <h5 class="p-3">Total Reviews : {{ book.reviews.all|length }}</h5>
+  {% for comment in book.reviews.all %}
     <div class="card my-3">
       <div class="card-body">
         <blockquote class="blockquote mb-0">
-          <p>{{ comment.body }}</p>
-          <footer class="blockquote-footer">{{ comment.name }}</footer>
+          <p>{{ comment.content }}</p>
+          <footer class="blockquote-footer">{{ comment.user.username }}</footer>
         </blockquote>
       </div>
     </div>
@@ -47,7 +41,7 @@
       <form method="post" class="d-grid w-50 mx-auto">
         <h1 class="text-center">Add Review</h1>
         {% csrf_token %}
-        {{ comment_form|crispy }}
+        {{ form|crispy }}
 
         <button class="btn btn-light">Enter</button>
       </form>

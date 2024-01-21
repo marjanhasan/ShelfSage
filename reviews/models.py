@@ -4,7 +4,7 @@ from catalog.models import Book
 from django.core.validators import MaxValueValidator, MinValueValidator
 class Review(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE,related_name='reviews')
     content = models.TextField()
     rating = models.PositiveSmallIntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(5)]
