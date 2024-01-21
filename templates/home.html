@@ -39,31 +39,33 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-<h1>home</h1>
-<div class="row">
-    <a href="" class="text-decoration-none">
-        <div class="bg-secondary" style="width: 18rem;">
-            <div class="d-flex justify-content-center">
-                <img src="{% static 'harry_potter.jpg' %}" class="w-50" alt="...">
-            </div>
-            <div class="">
-              <h2>Book Name</h2>
-              <p>-Author Name</p>
-            </div>
-        </div>
-    </a>
-</div>
-<h1>Book List</h1>
-  <ul>
-    {% for book in books %}
-      <li>
-        {% if request.user.is_authenticated %}
-        <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a> ({{ book.author }})
-        {% else %}
-        <a href="" >{{ book.title }}</a> ({{ book.author }})
-        {% endif %}
 
-      </li>
-    {% endfor %}
-  </ul>
+<h1 class="text-center my-5">Thousands of books from different genre</h1>
+
+<div class="row justify-content-end">
+  {% for book in books %}
+  {% if request.user.is_authenticated %}
+  <a href="{% url 'book-detail' book.pk %}"  class="card-link text-decoration-none col-4">
+    <div class="card mx-auto" style="width: 18rem;">
+        <img src="{{ book.image.url }}" class="card-img-top" style="height: 300px; object-fit: top;" alt="{{ book.title }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text">By {{ book.author }}</p>
+        </div>
+    </div>
+  </a>
+  {% else %}
+  <a href="#" class="card-link text-decoration-none col-4">
+    <div class="card mx-auto" style="width: 18rem;">
+        <img src="{{ book.image.url }}" class="card-img-top" style="height: 300px; object-fit: top;" alt="{{ book.title }}">
+        <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text">By {{ book.author }}</p>
+        </div>
+    </div>
+  </a>
+  {% endif %} 
+{% endfor %}
+</div>
+  
 {% endblock content %}

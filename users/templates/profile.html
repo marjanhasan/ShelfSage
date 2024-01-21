@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-  <h1 class="text-center mt-3">Update Your Profile</h1>
+  <h1 class="text-center mt-3">Welcome, <span class="text-primary">{{ request.user.username }}</span> to the dashboard</h1>
   <hr />
   <h1>Purchase History</h1>
-  <table class="table table-bordered border-primary mt-4">
+  <table class="table table-bordered border-secondary mt-4">
     <thead>
       <tr>
         <th scope="col">ID</th>
@@ -25,7 +25,7 @@
           <td>{{ val.returned_date }}</td>
           <td>
             {% if not val.is_returned %}
-                <a href="{% url 'return_book' val.id %}" class="btn btn-light">Return</a>
+                <a href="{% url 'return_book' val.id %}" class="btn btn-secondary">Return</a>
             {% else %}
                 Already Returned
             {% endif %}
@@ -38,14 +38,33 @@
       {% endfor %}
     </tbody>
   </table>
-  <hr />
   <h1>Wishlist</h1>
-  <ul>
-    {% for item in wishlist_items %}
-      <li>{{ item.book.title }}</li>
-      <a href="{% url 'remove_from_wishlist' item.book.id %}">Remove from Wishlist</a>
-    {% empty %}
-      <p>No items in wishlist.</p>
-    {% endfor %}
-  </ul>
+    <table class="table table-bordered border-secondary mt-4">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+          <th scope="col">Category</th>
+          <th scope="col">Added Date</th>
+          <th scope="col">Remove</th>
+        </tr>
+      </thead>
+      <tbody>
+          {% for item in wishlist_items %}
+            <tr>
+              <td scope="row">{{ item.book.id }}</td>
+              <td>{{ item.book.title }}</td>
+              <td>{{ item.book.category.name }}</td>
+              <td>{{ item.added_date }}</td>
+              <td>
+                <a href="{% url 'remove_from_wishlist' item.book.id %}" class="btn btn-secondary">Remove</a>
+              </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No items in transaction history.</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
 {% endblock %}

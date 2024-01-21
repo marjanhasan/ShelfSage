@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-  <h1>Return Book: {{ book.title }}</h1>
+  <h1 class="text-center my-5">Return Book: {{ book.title }}</h1>
 
-  <form method="post">
+  <form method="post" class="d-grid w-50 mx-auto">
     {% csrf_token %}
     {{ review_form|crispy }}
-    <button type="submit">Return Book and Submit Review</button>
+    <button type="submit" class="btn btn-secondary">Return Book and Submit Review</button>
   </form>
 
 {% endblock %}

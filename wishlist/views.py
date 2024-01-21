@@ -12,9 +12,9 @@ def wishlist_view(request):
 def add_to_wishlist(request, book_id):
     book = get_object_or_404(Book, pk=book_id)
     Wishlist.objects.create(user=request.user, book=book)
-    return redirect('home')
+    return redirect('book-detail',pk=book_id)
 
 @login_required
 def remove_from_wishlist(request, book_id):
     Wishlist.objects.filter(user=request.user, book_id=book_id).delete()
-    return redirect('home')
+    return redirect('book-detail',pk=book_id)

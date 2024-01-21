@@ -1,33 +1,34 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
+<h1 class="text-center my-5">{{ book.title }}'s details</h1>
   <div class="card mb-3">
     <div class="row g-2">
-      <div class="col-md-2">
-        <img src="{{ book.image.url }}" class="img-fluid rounded-start" alt="..." />
+      <div class="col-md-4">
+        <img src="{{ book.image.url }}" class="img-fluid rounded-start" style="height: 500px; width: 100%; object-fit: cover;" alt="..." />
       </div>
-      <div class="col-md-10">
+      <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title"><b class="text-light">Model :</b> {{ book.author }}</h5>
-          <p class="card-text">
-            <b class="text-light">Description :</b>{{ book.description }}
+          <h5 class="card-title fs-2"><b class="text-dark">Model :</b> {{ book.author }}</h5>
+          <p class="card-text fs-5">
+            <b class="text-dark fs-4">Description : </b>{{ book.description }}
           </p>
-          <p class="card-text">
-            <small class="text-body-secondary"><b class="text-light">Categories :</b> {{ book.category.name }}</small>
+          <p class="card-text fs-5">
+            <b class="text-dark fs-4">Categories :</b> <button class="btn btn-info" disabled>{{ book.category.name }}</button>
           </p>
           {% if request.user.is_authenticated %}
-            <p class="card-text">
-              {% if transaction %}
-                <a href="{% url 'return_book' transaction.id %}" class="btn btn-light">Return</a>
+            <div class="d-flex">
+                {% if transaction %}
+                  <a href="{% url 'return_book' transaction.id %}" class="btn btn-secondary me-2">Return</a>
+                {% else %}
+                  <a href="{% url 'borrow_book' book_id=book.id%}" class="btn btn-secondary me-2">Borrow</a>
+                {% endif %}
+              {% if is_wished %}
+                <a href="{% url 'remove_from_wishlist' book.id %}" class="btn btn-secondary me-2">Remove from Wishlist</a>
               {% else %}
-                <button class="btn btn-light"><a class="text-decoration-none text-dark" href="{% url 'borrow_book' book_id=book.id%}">Borrow</a></button>
+                <a href="{% url 'add_to_wishlist' book.id %}" class="btn btn-secondary me-2">Add to Wishlist</a>
               {% endif %}
-            </p>
-            {% if is_wished %}
-              <a href="{% url 'remove_from_wishlist' book.id %}">Remove from Wishlist</a>
-            {% else %}
-              <a href="{% url 'add_to_wishlist' book.id %}">Add to Wishlist</a>
-            {% endif %}
+            </div>
           {% endif %}
         </div>
       </div>
@@ -52,7 +53,7 @@
         {% csrf_token %}
         {{ form|crispy }}
 
-        <button class="btn btn-light">Enter</button>
+        <button class="btn btn-secondary">Review</button>
       </form>
     </div>
   </div>
