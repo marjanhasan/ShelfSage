@@ -19,6 +19,11 @@
             <p class="card-text">
               <button class="btn btn-light"><a class="text-decoration-none text-dark" href="{% url 'borrow_book' book_id=book.id%}">Borrow</a></button>
             </p>
+            {% if is_wished %}
+              <a href="{% url 'remove_from_wishlist' book.id %}">Remove from Wishlist</a>
+            {% else %}
+              <a href="{% url 'add_to_wishlist' book.id %}">Add to Wishlist</a>
+            {% endif %}
           {% endif %}
         </div>
       </div>
