@@ -18,9 +18,9 @@
             </li>
           </ul>
           {% if request.user.is_authenticated %}
-            <form class="d-flex">
-              <h3>Welcome, {{ request.user.first_name }}</h3>
-              {% comment %} <a class="nav-link mx-3" href="{% url 'profile' %}">Profile</a> {% endcomment %}
+            <form class="d-flex align-items-center">
+              <h3 >Welcome, {{ request.user.username }}</h3>
+              <a class="nav-link mx-3" href="{% url 'profile' %}">Profile</a>
               <a class="nav-link mx-3" href="{% url 'logout' %}">Logout</a>
             </form>
           {% else %}

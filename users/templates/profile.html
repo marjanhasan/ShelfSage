@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h1 class="text-center mt-3">Update Your Profile</h1>
+  <hr />
+  <h1>Purchase History</h1>
+  <table class="table table-bordered border-primary mt-4">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Name</th>
+        <th scope="col">Category</th>
+        <th scope="col">Borrowed Date</th>
+        <th scope="col">Returned Date</th>
+        <th scope="col">Return</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for val in transaction_history %}
+        <tr>
+          <td scope="row">{{ val.id }}</td>
+          <td>{{ val.book.title }}</td>
+          <td>{{ val.book.category.name }}</td>
+          <td>{{ val.borrowed_date }}</td>
+          <td>{{ val.returned_date }}</td>
+          <td>
+            {% if not val.is_returned %}
+                <a href="{% url 'return_book' val.id %}" class="btn btn-light">Return</a>
+            {% else %}
+                Already Returned
+            {% endif %}
+          </td>
+        </tr>
+        {% empty %}
+            <tr>
+                <td colspan="6" class="text-center">No items in transaction history.</td>
+            </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <hr />
+  <h1>Wishlist</h1>
+  <ul>
+    {% for item in wishlist_items %}
+      <li>{{ item.book.title }}</li>
+      <a href="{% url 'remove_from_wishlist' item.book.id %}">Remove from Wishlist</a>
+    {% empty %}
+      <p>No items in wishlist.</p>
+    {% endfor %}
+  </ul>
+{% endblock %}

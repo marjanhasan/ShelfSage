@@ -17,7 +17,7 @@ def borrow_book(request, book_id):
             book.availability_status = False
         book.save()
     else:
-        messages.error(request, "Document deleted.")
+        messages.warning(request, "You cannot borrow more than once.")
     return redirect('book-detail', pk=book_id)
 
 

@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
   <h1>Return Book: {{ book.title }}</h1>
 
   <form method="post">
     {% csrf_token %}
-    {{ review_form.as_p }}
+    {{ review_form|crispy }}
     <button type="submit">Return Book and Submit Review</button>
   </form>
 

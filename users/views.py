@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from . import forms
 from django.views.generic.edit import CreateView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -6,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from wishlist.models import Wishlist
+from transactions.models import Transaction
 
 class SignUpView(SuccessMessageMixin, CreateView):
     template_name = "form.html"
@@ -27,7 +30,7 @@ class UserLoginView(LoginView):
     template_name = "form.html"
 
     def get_success_url(self):
-        return reverse_lazy("login") # TODO home
+        return reverse_lazy("home")
 
     def form_valid(self, form):
         messages.success(self.request, "You are successfully logged in")
@@ -54,3 +57,12 @@ class UserLogoutView(LogoutView):
         response = super().dispatch(request, *args, **kwargs)
         messages.success(self.request, "Logged out successfully!")
         return response
+    
+
+
+@login_required
+def profile_view(request):
+    wishlist_items = Wishlist.objects.filter(user=request.user)
+    transaction_history = Transaction.objects.filter(user=request.user)
+
+    return render(request, 'profile.html', {'wishlist_items': wishlist_items,'transaction_history': transaction_history})

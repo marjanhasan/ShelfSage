@@ -57,7 +57,12 @@
   <ul>
     {% for book in books %}
       <li>
+        {% if request.user.is_authenticated %}
         <a href="{% url 'book-detail' book.pk %}">{{ book.title }}</a> ({{ book.author }})
+        {% else %}
+        <a href="" >{{ book.title }}</a> ({{ book.author }})
+        {% endif %}
+
       </li>
     {% endfor %}
   </ul>
