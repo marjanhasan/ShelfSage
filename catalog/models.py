@@ -1,4 +1,5 @@
 from django.db import models
+from categories.models import Categories
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -9,6 +10,7 @@ class Book(models.Model):
     genre = models.CharField(max_length=100)
     availability_status = models.BooleanField(default=True)
     number_of_copies = models.PositiveIntegerField(default=1)
+    category = models.ForeignKey(Categories, on_delete=models.CASCADE,null=True, blank=True)
     image = models.ImageField(
         upload_to="catalog/media/uploads",
         height_field=None,

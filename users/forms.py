@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserModel
+from .models import Users
 
 
 class RegistrationForm(UserCreationForm):
@@ -17,7 +17,7 @@ class RegistrationForm(UserCreationForm):
         our_user = super().save(commit=False)
         if commit == True:
             our_user.save()
-            UserModel.objects.create(
+            Users.objects.create(
                 user=our_user,
             )
         return our_user
