@@ -15,11 +15,11 @@
           <p class="card-text">
             <small class="text-body-secondary"><b class="text-light">Categories :</b> {{ book.category.name }}</small>
           </p>
-{% comment %}           {% if request.user.is_authenticated %}
+          {% if request.user.is_authenticated %}
             <p class="card-text">
-              <button class="btn btn-light"><a class="text-decoration-none text-dark" href="{% url 'borrow' id=book.id userid=request.user.id %}">Borrow</a></button>
+              <button class="btn btn-light"><a class="text-decoration-none text-dark" href="{% url 'borrow_book' book_id=book.id%}">Borrow</a></button>
             </p>
-          {% endif %} {% endcomment %}
+          {% endif %}
         </div>
       </div>
     </div>
