@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-<h1 class="text-center my-5">{{ book.title }}'s details</h1>
+<h1 class="text-center my-5"><span class="text-primary">{{ book.title }}</span> 's details</h1>
   <div class="card mb-3">
     <div class="row g-2">
       <div class="col-md-4">
@@ -9,12 +9,24 @@
       </div>
       <div class="col-md-8">
         <div class="card-body">
-          <h5 class="card-title fs-2"><b class="text-dark">Model :</b> {{ book.author }}</h5>
-          <p class="card-text fs-5">
-            <b class="text-dark fs-4">Description : </b>{{ book.description }}
+          <h5 class="card-title fs-4"><b class="text-dark">Author :</b> {{ book.author }}</h5>
+          <p class="card-text fs-6">
+            <b class="text-dark ">Description : </b>{{ book.description }}
           </p>
-          <p class="card-text fs-5">
-            <b class="text-dark fs-4">Categories :</b> <button class="btn btn-info" disabled>{{ book.category.name }}</button>
+          <p class="card-text fs-6">
+            <b class="text-dark ">ISBN : </b>{{ book.isbn }}
+          </p>
+          <p class="card-text fs-6">
+            <b class="text-dark ">Publication Date : </b>{{ book.publication_date }}
+          </p>
+          <p class="card-text fs-6">
+            <b class="text-dark ">Number of copies left : </b>{{ book.number_of_copies }}
+          </p>
+          <p class="card-text fs-6">
+            <b class="text-dark ">Genre : </b>{{ book.genre }}
+          </p>
+          <p class="card-text fs-6">
+            <b class="text-dark ">Categories : </b>{{ book.category.name }}
           </p>
           {% if request.user.is_authenticated %}
             <div class="d-flex">
