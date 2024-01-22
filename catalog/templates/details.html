@@ -52,6 +52,17 @@
     <div class="card my-3">
       <div class="card-body">
         <blockquote class="blockquote mb-0">
+          {% if comment.rating == 5 %}
+          <span>⭐⭐⭐⭐⭐</span>
+          {% elif comment.rating == 4 %}
+          <span>⭐⭐⭐⭐</span>
+          {% elif comment.rating == 3 %}
+          <span>⭐⭐⭐</span>
+          {% elif comment.rating == 2 %}
+          <span>⭐⭐</span>
+          {% elif comment.rating == 1 %}
+          <span>⭐</span>
+          {% endif %}
           <p>{{ comment.content }}</p>
           <footer class="blockquote-footer">{{ comment.user.username }}</footer>
         </blockquote>
